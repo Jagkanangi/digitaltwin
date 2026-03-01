@@ -22,6 +22,7 @@ anyio==4.12.1
     #   httpx
     #   openai
     #   starlette
+    #   watchfiles
 attrs==25.4.0
     # via
     #   aiohttp
@@ -29,10 +30,15 @@ attrs==25.4.0
     #   referencing
 backoff==2.2.1
     # via posthog
+bcrypt==5.0.0
+    # via chromadb
+build==1.4.0
+    # via chromadb
 certifi==2026.2.25
     # via
     #   httpcore
     #   httpx
+    #   kubernetes
     #   requests
 charset-normalizer==3.4.4
     # via requests
@@ -40,7 +46,7 @@ chonkie==1.5.6
     # via chattwin (pyproject.toml)
 chonkie-core==0.9.2
     # via chonkie
-chromadb-client==1.5.1
+chromadb==1.5.2
     # via chattwin (pyproject.toml)
 click==8.3.1
     # via
@@ -55,6 +61,8 @@ distro==1.9.0
     #   posthog
 docstring-parser==0.17.0
     # via instructor
+durationpy==0.10
+    # via kubernetes
 fastapi==0.134.0
     # via gradio
 fastuuid==0.14.0
@@ -63,6 +71,8 @@ ffmpy==1.0.0
     # via gradio
 filelock==3.24.3
     # via huggingface-hub
+flatbuffers==25.12.19
+    # via onnxruntime
 frozenlist==1.8.0
     # via
     #   aiohttp
@@ -78,7 +88,9 @@ gradio==5.16.0
 gradio-client==1.7.0
     # via gradio
 grpcio==1.78.0
-    # via opentelemetry-exporter-otlp-proto-grpc
+    # via
+    #   chromadb
+    #   opentelemetry-exporter-otlp-proto-grpc
 h11==0.16.0
     # via
     #   httpcore
@@ -87,9 +99,11 @@ hf-xet==1.3.2
     # via huggingface-hub
 httpcore==1.0.9
     # via httpx
+httptools==0.7.1
+    # via uvicorn
 httpx==0.28.1
     # via
-    #   chromadb-client
+    #   chromadb
     #   gradio
     #   gradio-client
     #   huggingface-hub
@@ -111,6 +125,8 @@ importlib-metadata==8.7.1
     # via
     #   litellm
     #   opentelemetry-api
+importlib-resources==6.5.2
+    # via chromadb
 instructor==1.14.5
     # via chattwin (pyproject.toml)
 jinja2==3.1.6
@@ -124,10 +140,12 @@ jiter==0.11.1
     #   openai
 jsonschema==4.26.0
     # via
-    #   chromadb-client
+    #   chromadb
     #   litellm
 jsonschema-specifications==2025.9.1
     # via jsonschema
+kubernetes==35.0.0
+    # via chromadb
 litellm==1.82.0
     # via chattwin (pyproject.toml)
 lxml==6.0.2
@@ -140,6 +158,10 @@ markupsafe==2.1.5
     #   jinja2
 mdurl==0.1.2
     # via markdown-it-py
+mmh3==5.2.0
+    # via chromadb
+mpmath==1.3.0
+    # via sympy
 multidict==6.7.1
     # via
     #   aiohttp
@@ -148,9 +170,14 @@ numpy==2.4.2
     # via
     #   chonkie
     #   chonkie-core
-    #   chromadb-client
+    #   chromadb
     #   gradio
+    #   onnxruntime
     #   pandas
+oauthlib==3.3.1
+    # via requests-oauthlib
+onnxruntime==1.24.2
+    # via chromadb
 openai==2.24.0
     # via
     #   chattwin (pyproject.toml)
@@ -158,41 +185,43 @@ openai==2.24.0
     #   litellm
 opentelemetry-api==1.39.1
     # via
-    #   chromadb-client
+    #   chromadb
     #   opentelemetry-exporter-otlp-proto-grpc
     #   opentelemetry-sdk
     #   opentelemetry-semantic-conventions
 opentelemetry-exporter-otlp-proto-common==1.39.1
     # via opentelemetry-exporter-otlp-proto-grpc
 opentelemetry-exporter-otlp-proto-grpc==1.39.1
-    # via chromadb-client
+    # via chromadb
 opentelemetry-proto==1.39.1
     # via
     #   opentelemetry-exporter-otlp-proto-common
     #   opentelemetry-exporter-otlp-proto-grpc
 opentelemetry-sdk==1.39.1
     # via
-    #   chromadb-client
+    #   chromadb
     #   opentelemetry-exporter-otlp-proto-grpc
 opentelemetry-semantic-conventions==0.60b1
     # via opentelemetry-sdk
 orjson==3.11.7
     # via
-    #   chromadb-client
+    #   chromadb
     #   gradio
 overrides==7.7.0
-    # via chromadb-client
+    # via chromadb
 packaging==26.0
     # via
+    #   build
     #   gradio
     #   gradio-client
     #   huggingface-hub
+    #   onnxruntime
 pandas==2.3.3
     # via gradio
 pillow==11.3.0
     # via gradio
 posthog==5.4.0
-    # via chromadb-client
+    # via chromadb
 propcache==0.4.1
     # via
     #   aiohttp
@@ -200,15 +229,16 @@ propcache==0.4.1
 protobuf==6.33.5
     # via
     #   googleapis-common-protos
+    #   onnxruntime
     #   opentelemetry-proto
 pushover==0.5
     # via chattwin (pyproject.toml)
 pybase64==1.4.3
-    # via chromadb-client
+    # via chromadb
 pydantic==2.12.5
     # via
     #   chattwin (pyproject.toml)
-    #   chromadb-client
+    #   chromadb
     #   fastapi
     #   gradio
     #   instructor
@@ -224,23 +254,32 @@ pygments==2.19.2
     # via rich
 pypdf2==3.0.1
     # via chattwin (pyproject.toml)
+pypika==0.51.1
+    # via chromadb
+pyproject-hooks==1.2.0
+    # via build
 python-dateutil==2.9.0.post0
     # via
+    #   kubernetes
     #   pandas
     #   posthog
 python-docx==1.2.0
     # via chattwin (pyproject.toml)
 python-dotenv==1.2.1
-    # via litellm
+    # via
+    #   litellm
+    #   uvicorn
 python-multipart==0.0.22
     # via gradio
 pytz==2025.2
     # via pandas
 pyyaml==6.0.3
     # via
-    #   chromadb-client
+    #   chromadb
     #   gradio
     #   huggingface-hub
+    #   kubernetes
+    #   uvicorn
 referencing==0.37.0
     # via
     #   jsonschema
@@ -250,11 +289,16 @@ regex==2026.2.28
 requests==2.32.5
     # via
     #   instructor
+    #   kubernetes
     #   posthog
     #   pushover
+    #   requests-oauthlib
     #   tiktoken
+requests-oauthlib==2.0.0
+    # via kubernetes
 rich==14.3.3
     # via
+    #   chromadb
     #   instructor
     #   typer
 rpds-py==0.30.0
@@ -273,6 +317,7 @@ shellingham==1.5.4
     # via typer
 six==1.17.0
     # via
+    #   kubernetes
     #   posthog
     #   python-dateutil
 sniffio==1.3.1
@@ -281,24 +326,30 @@ starlette==0.52.1
     # via
     #   fastapi
     #   gradio
+sympy==1.14.0
+    # via onnxruntime
 tenacity==9.1.4
     # via
     #   chonkie
-    #   chromadb-client
+    #   chromadb
     #   instructor
 tiktoken==0.12.0
     # via litellm
 tokenizers==0.22.2
-    # via litellm
+    # via
+    #   chromadb
+    #   litellm
 tomlkit==0.13.3
     # via gradio
 tqdm==4.67.3
     # via
     #   chonkie
+    #   chromadb
     #   huggingface-hub
     #   openai
 typer==0.24.1
     # via
+    #   chromadb
     #   gradio
     #   huggingface-hub
     #   instructor
@@ -306,7 +357,7 @@ typing-extensions==4.15.0
     # via
     #   aiosignal
     #   anyio
-    #   chromadb-client
+    #   chromadb
     #   fastapi
     #   gradio
     #   gradio-client
@@ -330,11 +381,23 @@ typing-inspection==0.4.2
 tzdata==2025.3
     # via pandas
 urllib3==2.6.3
-    # via requests
+    # via
+    #   kubernetes
+    #   requests
 uvicorn==0.41.0
-    # via gradio
+    # via
+    #   chromadb
+    #   gradio
+uvloop==0.22.1
+    # via uvicorn
+watchfiles==1.1.1
+    # via uvicorn
+websocket-client==1.9.0
+    # via kubernetes
 websockets==14.2
-    # via gradio-client
+    # via
+    #   gradio-client
+    #   uvicorn
 yarl==1.22.0
     # via aiohttp
 zipp==3.23.0
