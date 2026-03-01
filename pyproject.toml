@@ -7,7 +7,7 @@ requires-python = ">=3.12"
 dependencies = [
     "chonkie>=1.5.6",
     "chromadb-client==1.5.1",
-    "gradio>=6.5.1",
+    "gradio>=5.16.0",
     "instructor>=1.14.5",
     "litellm>=1.81.11",
     "openai>=2.21.0",
