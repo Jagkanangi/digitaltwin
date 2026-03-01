@@ -2,7 +2,7 @@ services:
   chattwin:
     build: 
       context: .
-      dockerfile: Dockerfile.local
+      dockerfile: Dockerfile-local
     image: chattwin
     env_file: 
       - .env
