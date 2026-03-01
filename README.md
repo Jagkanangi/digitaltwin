@@ -1,3 +1,14 @@
+---
+title: DigitalTwin
+emoji: 🤖
+colorFrom: blue
+colorTo: green
+sdk: gradio
+sdk_version: 5.16.0
+app_file: src/GradioUI.py
+pinned: false
+---
+
 This project is to showcase my skill with AI development and deployment. In this repository you will find a fully fledged digital twin that uses GradioUI as the front end and a configurable LLM. There is also a webservice that can be used to create a chat using any other technology. 
 
 This is part of a demonstration of my skill. Additonally, you may also find another repo that will contain a sample ML model that uses Kaggle challenge for penguins. While the objective of the ML model is not to display my model building architectural knowledge but rather to portray and build a cogent case for my ability to design, develop and most importantly deploy the model. Both of these projects are work in progress as I juggle with my normal day to day activities and build this out. As I build I will be updating this file to specify the technology used and the skills I demonstrate.
