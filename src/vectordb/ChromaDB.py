@@ -38,42 +38,57 @@ class ChromaDB(AbstractDB):
             logger.error(f"Failed to initialize ChromaDB connection: {e}", exc_info=True)
 
     def connect(self) -> ClientAPI:
-        """
-        Establishes a thread-safe, singleton connection to the ChromaDB server.
-
-        This method ensures that only one instance of the `chromadb.HttpClient`
-        is created and shared across the application. It uses a lock to prevent
-        race conditions during initialization.
-
-        It also includes a resilience mechanism: if a client instance already
-        exists, it checks its heartbeat. If the connection is lost, it
-        re-establishes it.
-
-        Returns:
-            The active ChromaDB client instance.
-        """
         if ChromaDB._client is None:
             with ChromaDB._client_lock:
                 if ChromaDB._client is None:
                     try:
-                        ChromaDB._client = chromadb.HttpClient(host=self._host, port=self._port)
-                        logger.info(f"Connected to ChromaDB at {self._host}:{self._port}")
+                        # THE FIX: Switch from HttpClient to PersistentClient
+                        # Point it to the folder where your .bin files are stored
+                        db_path = "src/chroma_data" 
+                        ChromaDB._client = chromadb.PersistentClient(path=db_path)
+                        logger.info(f"Connected to Persistent ChromaDB at {db_path}")
                     except Exception as e:
-                        logger.error(f"Error connecting to ChromaDB at {self._host}:{self._port}: {e}", exc_info=True)
+                        logger.error(f"Error connecting to Persistent ChromaDB: {e}", exc_info=True)
                         raise
-                else :
-                    try:
-                        ChromaDB._client.heartbeat()
-                    except Exception as e:
-                        logger.warning(f"ChromaDB heartbeat failed: {e}. Reconnecting...")
-                        with ChromaDB._client_lock:
-                            try:
-                                ChromaDB._client = chromadb.HttpClient(host=self._host, port=self._port)
-                                logger.info(f"Reconnected to ChromaDB at {self._host}:{self._port}")
-                            except Exception as re_e:
-                                logger.error(f"Failed to reconnect to ChromaDB: {re_e}", exc_info=True)
-                                raise
         return ChromaDB._client
+
+    # def connect(self) -> ClientAPI:
+    #     """
+    #     Establishes a thread-safe, singleton connection to the ChromaDB server.
+
+    #     This method ensures that only one instance of the `chromadb.HttpClient`
+    #     is created and shared across the application. It uses a lock to prevent
+    #     race conditions during initialization.
+
+    #     It also includes a resilience mechanism: if a client instance already
+    #     exists, it checks its heartbeat. If the connection is lost, it
+    #     re-establishes it.
+
+    #     Returns:
+    #         The active ChromaDB client instance.
+    #     """
+    #     if ChromaDB._client is None:
+    #         with ChromaDB._client_lock:
+    #             if ChromaDB._client is None:
+    #                 try:
+    #                     ChromaDB._client = chromadb.HttpClient(host=self._host, port=self._port)
+    #                     logger.info(f"Connected to ChromaDB at {self._host}:{self._port}")
+    #                 except Exception as e:
+    #                     logger.error(f"Error connecting to ChromaDB at {self._host}:{self._port}: {e}", exc_info=True)
+    #                     raise
+    #             else :
+    #                 try:
+    #                     ChromaDB._client.heartbeat()
+    #                 except Exception as e:
+    #                     logger.warning(f"ChromaDB heartbeat failed: {e}. Reconnecting...")
+    #                     with ChromaDB._client_lock:
+    #                         try:
+    #                             ChromaDB._client = chromadb.HttpClient(host=self._host, port=self._port)
+    #                             logger.info(f"Reconnected to ChromaDB at {self._host}:{self._port}")
+    #                         except Exception as re_e:
+    #                             logger.error(f"Failed to reconnect to ChromaDB: {re_e}", exc_info=True)
+    #                             raise
+    #     return ChromaDB._client
 
     def get_connection(self):
         """
