@@ -1,0 +1,32 @@
+Connection:
+  DB_HOST: ${DB_HOST:-localhost}
+  DB_PORT: ${DB_PORT:-8000}
+  DB_TYPE: ${DB_TYPE:-chroma}
+DB_RETRIEVAL:
+  NN_COUNT: ${DB_NN_COUNT:-5}
+SYSTEM:
+  FILE_LOCATIONS:
+    DATA_DIR_NAME: ${DATA_DIR_NAME:-data}
+    DOCUMENT_TO_PROCESS_DIR: ${DOCUMENT_TO_PROCESS_DIR:-data/input_rag}
+    DOCUMENT_PROCESSED_DIR: ${DOCUMENT_PROCESSED_DIR:-data/rag_processed}
+  MODELS:
+    EMBEDDING_MODEL: ${EMBEDDING_MODEL:-text-embedding-3-small}
+    LLM_MODEL: ${LLM_MODEL:-gpt-3.5-turbo}
+  LLM_SETTINGS:
+    LLM_TEMPERATURE: ${LLM_TEMPERATURE:-0.7}
+    LLM_MAX_TOKENS: ${LLM_MAX_TOKENS:-2000}
+    LLM_RAG_ENABLED: ${LLM_RAG_ENABLED:-True}
+  LLM_INTENT_PROVIDER:
+    HOST : ${LLAMA_HOST_URL_WITH_PORT:-http://localhost:11434}
+    MODEL: ${LLAMA_MODEL:-llama3}
+    PROVIDER : "ollama"
+  CHUNK_SETTINGS:
+    CHUNK_SIZE: ${CHUNK_SIZE:-500}
+    CHUNK_OVERLAP: ${CHUNK_OVERLAP:-50}
+PERSONA_SETTINGS:
+  PERSONA_TEMP: .1
+  CODE_EXPLANATION : .5
+  TECH_EXPLANATION : .5
+  PERSONA_COLLECTION_NAME: "jag_bio"
+#Other configurations can be added here as needed for different DB types
+# Example for ChromaDB, Weaviate, Pinecone etc.

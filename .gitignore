@@ -1,0 +1,10 @@
+# Python-generated files
+.env
+.venv
+.git
+__pycache__
+*.pyc
+.profile
+logs/
+/data/
+*.egg-info/

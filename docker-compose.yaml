@@ -1,0 +1,43 @@
+services:
+  chattwin:
+    build: 
+      context: .
+      dockerfile: Dockerfile.local
+    image: chattwin
+    env_file: 
+      - .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/app/logs
+      - ./config/system.yaml:/app/config/system.yaml:ro
+      - ./data:/app/data
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-INFO} # Use the variable if it exists
+      - DB_HOST=chromadb
+    depends_on:
+      - chromadb
+  ###### using chromadb but reality is this will be a prod ready db such as weaviate or pinecone 
+  chromadb:
+    # Pinning by Image + Tag + Digest
+    image: chromadb/chroma:1.5.2
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./chroma_data:/data
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+      # Enable Authentication
+      - CHROMA_SERVER_AUTH_PROVIDER=${CHROMA_SERVER_AUTH_PROVIDER}
+      - CHROMA_SERVER_AUTH_CREDENTIALS=${CHROMA_SERVER_AUTH_CREDENTIALS}
+      - CHROMA_CORS_ALLOW_ORIGINS=["http://localhost:3001"]
+  # chroma-admin:
+  #   image: fengzhichao/chromadb-admin:latest
+  #   ports:
+  #     - "3001:3001"
+  #   environment:
+  #     # Use the SERVICE NAME 'chromadb' here, not localhost
+  #     - CHROMA_URL= http://172.18.0.2:8000
+  #   depends_on:
+  #     - chromadb

@@ -1,0 +1,20 @@
+[project]
+name = "chattwin"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "chonkie>=1.5.6",
+    "chromadb-client==1.5.1",
+    "gradio>=6.5.1",
+    "instructor>=1.14.5",
+    "litellm>=1.81.11",
+    "openai>=2.21.0",
+    "pushover>=0.5",
+    "pydantic>=2.12.5",
+    "pypdf2>=3.0.1",
+    "python-docx>=1.2.0",
+    "ruamel.yaml>=0.18.6",
+]
+

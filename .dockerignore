@@ -1,0 +1,17 @@
+.env
+.venv
+.profile
+.git
+__pycache__
+*.pyc
+logs/
+data/
+.vscode
+Dockerfile
+LICENSE
+README.md
+authors.md
+docker-compose.yaml
+justfile
+*.egg-info/
+chroma_data/

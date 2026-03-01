@@ -1,0 +1,31 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  simpleFormatter:
+    format: '%(asctime)s [%(levelname)s] %(message)s'
+
+handlers:
+  consoleHandler:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: simpleFormatter
+    stream: ext://sys.stdout
+  fileHandler:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: simpleFormatter
+    filename: 'chattwin.log' # placeholder, will be replaced by defaults in LoggerInit
+    maxBytes: 2097152
+    backupCount: 10
+    mode: 'a'
+
+loggers:
+  chattwin:
+    level: INFO
+    handlers: [consoleHandler, fileHandler]
+    propagate: false
+
+root:
+  level: INFO
+  handlers: [consoleHandler, fileHandler]
