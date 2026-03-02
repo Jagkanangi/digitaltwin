@@ -7,7 +7,7 @@ services:
     env_file: 
       - .env
     ports:
-      - "8080:7860"
+      - "8080:7860" 
     volumes:
       - ./logs:/app/logs
       - ./config/system.yaml:/app/config/system.yaml:ro
