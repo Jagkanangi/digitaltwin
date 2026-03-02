@@ -3,6 +3,7 @@ from typing import Any
 from vectordb.AbstractDataWrapper import AbstractDataWrapper
 
 # DESIGN RATIONALE:
+# AbstractFactoryPattern
 # The AbstractDB class is the cornerstone of the database abstraction layer.
 # It defines a common interface that all vector database implementations in the
 # application must adhere to. This design promotes a "plug-and-play" architecture:

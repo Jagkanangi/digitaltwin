@@ -53,28 +53,28 @@ class ChromaDBHttpClient(AbstractDB):
         Returns:
             The active ChromaDB client instance.
         """
-        if ChromaDB._client is None:
-            with ChromaDB._client_lock:
-                if ChromaDB._client is None:
+        if ChromaDBHttpClient._client is None:
+            with ChromaDBHttpClient._client_lock:
+                if ChromaDBHttpClient._client is None:
                     try:
-                        ChromaDB._client = chromadb.HttpClient(host=self._host, port=self._port)
+                        ChromaDBHttpClient._client = chromadb.HttpClient(host=self._host, port=self._port)
                         logger.info(f"Connected to ChromaDB at {self._host}:{self._port}")
                     except Exception as e:
                         logger.error(f"Error connecting to ChromaDB at {self._host}:{self._port}: {e}", exc_info=True)
                         raise
                 else :
                     try:
-                        ChromaDB._client.heartbeat()
+                        ChromaDBHttpClient._client.heartbeat()
                     except Exception as e:
                         logger.warning(f"ChromaDB heartbeat failed: {e}. Reconnecting...")
-                        with ChromaDB._client_lock:
+                        with ChromaDBHttpClient._client_lock:
                             try:
-                                ChromaDB._client = chromadb.HttpClient(host=self._host, port=self._port)
+                                ChromaDBHttpClient._client = chromadb.HttpClient(host=self._host, port=self._port)
                                 logger.info(f"Reconnected to ChromaDB at {self._host}:{self._port}")
                             except Exception as re_e:
                                 logger.error(f"Failed to reconnect to ChromaDB: {re_e}", exc_info=True)
                                 raise
-        return ChromaDB._client
+        return ChromaDBHttpClient._client
 
     def get_connection(self):
         """

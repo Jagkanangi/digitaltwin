@@ -1,7 +1,8 @@
-from src.utils.SystemConfig import config
-from src.vectordb.AbstractDB import AbstractDB
-from src.vectordb.ChromaDB import ChromaDB
-from src.vectordb.ChormaDBHttpClient import ChromaDBHttpClient
+from utils.SystemConfig import config
+from .AbstractDB import AbstractDB
+from .ChromaDB import ChromaDB
+from .ChromaDBHttpClient import ChromaDBHttpClient
+
 def get_vectordb() -> AbstractDB:
     """
     A factory function that creates and returns a vector database instance.
@@ -20,12 +21,12 @@ def get_vectordb() -> AbstractDB:
     """
     db_type = config.connection.db_type
 
-    if db_type == 'chroma':
-        return ChromaDB()
-    elif db_type == "chroma_remote":
-        return ChromaDBHttpClient()
-    # Add other database types here in the future, e.g.:
-    # elif db_type == 'weaviate':
-    #     return WeaviateDB()
+    db_mapping = {
+        "ChromaDB": ChromaDB,
+        "ChromaDBHttpClient": ChromaDBHttpClient,
+    }
+
+    if db_type in db_mapping:
+        return db_mapping[db_type]()
     else:
         raise ValueError(f"Unsupported DB_TYPE: {db_type}")

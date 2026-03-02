@@ -1,7 +1,7 @@
 Connection:
   DB_HOST: ${DB_HOST:-localhost}
   DB_PORT: ${DB_PORT:-8000}
-  DB_TYPE: ${DB_TYPE:-chroma}
+  DB_TYPE: ${DB_TYPE:-ChromaDB}
 DB_RETRIEVAL:
   NN_COUNT: ${DB_NN_COUNT:-5}
 SYSTEM:
@@ -10,8 +10,9 @@ SYSTEM:
     DOCUMENT_TO_PROCESS_DIR: ${DOCUMENT_TO_PROCESS_DIR:-data/input_rag}
     DOCUMENT_PROCESSED_DIR: ${DOCUMENT_PROCESSED_DIR:-data/rag_processed}
   MODELS:
+    CHUNKING_MODEL : ${CHUNKING_MODEL:-text-embedding-3-small}
     EMBEDDING_MODEL: ${EMBEDDING_MODEL:-text-embedding-3-small}
-    LLM_MODEL: ${LLM_MODEL:-gpt-3.5-turbo}
+    LLM_MODEL: ${LLM_MODEL:-gpt-4o-mini}
   LLM_SETTINGS:
     LLM_TEMPERATURE: ${LLM_TEMPERATURE:-0.7}
     LLM_MAX_TOKENS: ${LLM_MAX_TOKENS:-2000}

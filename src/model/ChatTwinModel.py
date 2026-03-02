@@ -26,7 +26,7 @@ class ChatTwin(AbstractChatClient):
     
     It uses the 'instructor' library to enforce structured output from the LLM using Pydantic models.
     """
-    def __init__(self, model_name="gpt-4o-mini-2024-07-18", model_key="", model_role_type="You are an assistant"):
+    def __init__(self, model_name=config.system.models.llm_model, model_key="", model_role_type="You are an assistant"):
         """
         Initializes the ChatTwin model.
 

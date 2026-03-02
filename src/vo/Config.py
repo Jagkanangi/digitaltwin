@@ -14,6 +14,7 @@ class FileLocationsConfig(BaseModel):
     document_processed_dir: str = Field(..., alias='DOCUMENT_PROCESSED_DIR')
 
 class ModelsConfig(BaseModel):
+    chunking_model : str = Field(..., alias='CHUNKING_MODEL')
     embedding_model: str = Field(..., alias='EMBEDDING_MODEL')
     llm_model: str = Field(..., alias='LLM_MODEL')
 class LLM_INTENT_PROVIDER(BaseModel):

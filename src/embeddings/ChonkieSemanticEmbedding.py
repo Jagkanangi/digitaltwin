@@ -16,7 +16,7 @@ class ChonkieSemanticEmbedding(AbstractEmbeddingModel):
     This is particularly useful for preparing text for Retrieval-Augmented Generation (RAG)
     systems where chunk coherence is important for context quality.
     """
-    _chunking_model = config.system.models.embedding_model
+    _chunking_model = config.system.models.chunking_model
     def __init__(self,
                  file_name : str | None = None,
                  directory_name : str | None = None,
@@ -25,7 +25,7 @@ class ChonkieSemanticEmbedding(AbstractEmbeddingModel):
                  chunk_size: int = 2048,
                  similarity_window: int = 3,
                  min_sentences_per_chunk: int = 5,
-                 model_name: str = "text-embedding-3-small"):
+                 model_name: str = config.system.models.embedding_model):
         """
         Initializes the ChonkieSemanticEmbedding instance.
 
