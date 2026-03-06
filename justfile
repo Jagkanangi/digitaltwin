@@ -40,7 +40,7 @@ install-google-cli:
 website_module_name := "digital-twin-ui-website"
 organization_id := shell(gcloud projects describe YOUR_PROJECT_ID --format="value(parent.id)")
 project_id := "digital-twin"
-
+project_name := "project_name"
 PROJECT_NUMBER := shell("gcloud projects describe " + project_id + " --format='value(projectNumber)'")
 region := "northamerica-northeast2"
 backend_service_name := "digital-twin-backend" #this is not the webservice
@@ -48,7 +48,7 @@ NEG_name := "digital-twin-ui-neg"
 url_map := "digital-twin-url-map"
 ssl_certificates := "ca-certificates"
 cert_map := "cert-map"
-ip_address := "35.244.229.199"
+ip_address := "xxxx"
 forwarding_rule := "digital-twin-lb"
 https_proxy := "https-proxy"
 repo_name := "my-profile-website"
@@ -60,58 +60,49 @@ repo_link_name  := "digital-twin-ui-link" # The name GCP uses for this link
 #get this value from github. install from the marketpace https://github.com/marketplace/google-cloud-build. once installed you will see the id on the url
 gcp_git_installation_id := "xxxxx"
 chorma_bucket_name := "digital_twin_bucket"
-chroma_db := "https://chromadb-service-796654183193.northamerica-northeast2.run.app"
-redis_bucket_name := "redis_bukcet"
-redis_service := https://redis-service-796654183193.northamerica-northeast2.run.app
+chroma_db := "paste your create_url_map"
+redis_bucket_name := "redis_bucket"
+redis_service := "paste your url"
+domain := "Your domain name"
+subdomain := "www"
 # Recipe to create a project with a unique ID
 create-project:
     @echo "Creating project with ID: {{project_id}}"
-    gcloud projects create {{project_id}} --organization={{organization_id}} --name="kindnus-project-digital-twin"
+    gcloud projects create {{project_id}} --organization={{organization_id}} --name={{project_name}}
     gcloud config set project {{project_id}}
 
 [group('create_external_ip')] 
 create_external_ip:
-    gcloud compute addresses create kindnus-external-ip-address \
+    gcloud compute addresses create external-ip-address \
         --network-tier=PREMIUM \
         --global
 [group('create_certificates')]
-create_dns:
-    gcloud certificate-manager dns-authorizations create auth-kindnus-root --domain="kindnus.ca"
-    gcloud certificate-manager dns-authorizations create auth-kindnus-www --domain="www.kindnus.ca"
-    gcloud certificate-manager dns-authorizations create auth-kindnus-twin --domain="digital-twin.kindnus.ca"
-    gcloud certificate-manager dns-authorizations create auth-kindnus-jag --domain="jag.kindnus.ca"
+create_dns: 
+    #mutliple of these if you want subdomains
+    gcloud certificate-manager dns-authorizations create auth-root --domain={{domain}}
+    gcloud certificate-manager dns-authorizations create auth-www --domain={{subdomain}}.{{domain}}
 [group('create_certificates')]
 generate_CNAME_maps:
-    gcloud certificate-manager dns-authorizations describe auth-kindnus-jag
-    gcloud certificate-manager dns-authorizations describe auth-kindnus-twin
-    gcloud certificate-manager dns-authorizations describe auth-kindnus-root
-    gcloud certificate-manager dns-authorizations describe auth-kindnus-www
+    gcloud certificate-manager dns-authorizations describe auth-root
+    gcloud certificate-manager dns-authorizations describe auth-www
 #important map the above values to the domain name service
 [group('create_certificates')]
 create_certificates:
     gcloud certificate-manager certificates create {{ssl_certificates}} \
-        --domains="kindnus.ca,www.kindnus.ca,digital-twin.kindnus.ca,jag.kindnus.ca" \
-        --dns-authorizations="auth-kindnus-root,auth-kindnus-www,auth-kindnus-twin,auth-kindnus-jag"
+        --domains="" \
+        --dns-authorizations="auth-root,auth-www"
 #create the map so load balancer can see it
 [group('create_certificates')]
 create_certificate_map:
     gcloud certificate-manager maps create {{cert_map}}
-    # map entries for the map Repeat this for root, www, and digital-twin
-    gcloud certificate-manager maps entries create jag \
-        --map={{cert_map}} \
-        --hostname="jag.kindnus.ca" \
-        --certificates={{ssl_certificates}}
+    # map entries for the map Repeat this for root, www and any other domain
     gcloud certificate-manager maps entries create www \
         --map={{cert_map}} \
-        --hostname="www.kindnus.ca" \
+        --hostname={{subdomain}}.{{domain}} \
         --certificates={{ssl_certificates}}
     gcloud certificate-manager maps entries create root \
         --map={{cert_map}} \
-        --hostname="kindnus.ca" \
-        --certificates={{ssl_certificates}}
-    gcloud certificate-manager maps entries create digital-twin \
-        --map={{cert_map}} \
-        --hostname="digital-twin.kindnus.ca" \
+        --hostname={{domain}}" \
         --certificates={{ssl_certificates}}
 
 # create auto ci/cd so the cloud run service can be create before creating neg
@@ -211,20 +202,14 @@ create_trigger:
 map_domains_to_service:
     gcloud beta run domain-mappings create \
         --service={{website_module_name}} \
-        --domain=www.kindnus.ca \
+        --domain={{subdomain}}.{{domain}}\
         --region={{region}}
-
-    # Map the jag subdomain
     gcloud beta run domain-mappings create \
         --service={{website_module_name}} \
-        --domain=jag.kindnus.ca \
+        --domain={{domain}}\
         --region={{region}}
 
-    # Map the digital-twin subdomain
-    gcloud beta run domain-mappings create \
-        --service={{website_module_name}} \
-        --domain=digital-twin.kindnus.ca \
-        --region={{region}}
+
 [group('create_serverless_NEG')]
 create_serverless_NEG:
     gcloud compute network-endpoint-groups create {{NEG_name}} \
