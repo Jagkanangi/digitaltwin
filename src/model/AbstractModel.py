@@ -23,7 +23,6 @@ class AbstractChatClient(ABC):
         self.USER_ROLE = "user"
         self.ASSISTANT_ROLE = "assistant"
         self.TOOL_ROLE = "tool"
-        self.add_message(self.SYSTEM_ROLE, model_role_type)
         self.initialize_client()
 
     @abstractmethod
@@ -48,15 +47,14 @@ class AbstractChatClient(ABC):
     def add_message(self, role, content):
         # if(role == self.USER_ROLE):
         #     self.filterMessageForHarmfulness(content)
+        if(len(self.messages) == 0): # if this is the first message, add the system role
+            self.messages.append({"role":self.SYSTEM_ROLE, "content": self.model_role_type})
         self.messages.append({"role": role, "content": content})
 
-    # convenience method to add text to message history
-    def add_message_rag(self, role, content, rag):
-        # if(role == self.USER_ROLE):
-        #     self.filterMessageForHarmfulness(content)
-        self.messages.append({"role": role, "content": content + "\n" + rag})
     def clear_messages(self):
         self.messages = []
+    # def set_history(self, history : list[str]) -> str:
+    #     self.messages = for history
     def remove_rag(self):
         if len(self.messages) < 2:
             return
@@ -70,6 +68,9 @@ class AbstractChatClient(ABC):
     # convenience method to get all messages
     def get_messages(self):
         return self.messages
+    
+    def set_messages(self, messages):
+        self.messages = messages
     
     # convenience method to get the last message of a specific role
     def get_last_message(self, role = None) -> str:

@@ -8,3 +8,5 @@ __pycache__
 logs/
 /data/
 *.egg-info/
+chroma_data/
+redis_data/

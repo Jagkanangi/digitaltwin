@@ -57,7 +57,7 @@ class ChromaDBHttpClient(AbstractDB):
             with ChromaDBHttpClient._client_lock:
                 if ChromaDBHttpClient._client is None:
                     try:
-                        ChromaDBHttpClient._client = chromadb.HttpClient(host=self._host, port=self._port)
+                        ChromaDBHttpClient._client = chromadb.HttpClient(host=self._host, port=self._port, headers={"Authorization": f"Bearer {config.chroma_server_auth_credentials}"})
                         logger.info(f"Connected to ChromaDB at {self._host}:{self._port}")
                     except Exception as e:
                         logger.error(f"Error connecting to ChromaDB at {self._host}:{self._port}: {e}", exc_info=True)

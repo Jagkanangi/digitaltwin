@@ -19,8 +19,8 @@ class DocumentService:
         Processes each file in a source directory, generates embeddings, saves them to the vector database,
         and then moves the processed file to a destination directory.
         """
-        source_directory = config.system.file_locations.document_to_process_dir
-        destination_directory = config.system.file_locations.document_processed_dir
+        source_directory = config.file_locations.document_to_process_dir
+        destination_directory = config.file_locations.document_processed_dir
         os.makedirs(source_directory, exist_ok=True)
         os.makedirs(destination_directory, exist_ok=True)
 
