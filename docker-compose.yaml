@@ -1,22 +1,4 @@
 services:
-  chattwin:
-    build: 
-      context: .
-      dockerfile: Dockerfile-local
-    image: chattwin
-    env_file: 
-      - .env
-    ports:
-      - "8080:7860" 
-    volumes:
-      - ./logs:/app/logs
-      - ./config/system.yaml:/app/config/system.yaml:ro
-      - ./data:/app/data
-    environment:
-      - LOG_LEVEL=${LOG_LEVEL:-INFO} # Use the variable if it exists
-      - DB_HOST=chromadb
-    depends_on:
-      - chromadb
   ###### using chromadb but reality is this will be a prod ready db such as weaviate or pinecone 
   chromadb:
     # Pinning by Image + Tag + Digest
@@ -31,7 +13,53 @@ services:
       # Enable Authentication
       - CHROMA_SERVER_AUTH_PROVIDER=${CHROMA_SERVER_AUTH_PROVIDER}
       - CHROMA_SERVER_AUTH_CREDENTIALS=${CHROMA_SERVER_AUTH_CREDENTIALS}
-      - CHROMA_CORS_ALLOW_ORIGINS=["http://localhost:3001"]
+      - CHROMA_SERVER_AUTH_TOKEN_TRANSPORT_HEADER=${CHROMA_SERVER_AUTH_TOKEN_TRANSPORT_HEADER}  
+  redis:
+    image: redis:7-alpine
+    # The --port flag tells Redis to listen on the injected $PORT
+    command: redis-server --requirepass ${REDIS_PASSWORD} --port ${PORT:-6379} --appendonly yes    
+    ports: 
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data
+  digitaltwin-api-service:
+    build: 
+      context: .
+      dockerfile: Dockerfile-local
+    command: uv run python src/RestService.py
+    image: digital_twin_service
+    env_file: 
+      - .env
+      - .env.shared
+    ports:
+      - "8080:8080" 
+    volumes:
+      - ./logs:/app/logs
+      # - ./config/system.yaml:/app/config/system.yaml:ro
+      - ./data:/app/data
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-INFO} # Use the variable if it exists
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - REDIS_HOST=redis
+    depends_on:
+      - chromadb
+      - redis
+  # The Embedded Face (Gradio)
+  digitaltwin-ui:
+    build: 
+      context : .
+      dockerfile: Dockerfile-local
+    image: digital_twin_ui
+    env_file: 
+      - .env
+      - .env.shared
+    command: uv run python src/GradioUI.py
+    ports:
+      - "7860:7860"
+    environment:
+      - UI_SETTINGS__CHAT_SERVICE_URL=http://digitaltwin-api-service:8080/chat
+    depends_on:
+      - digitaltwin-api-service
   # chroma-admin:
   #   image: fengzhichao/chromadb-admin:latest
   #   ports:

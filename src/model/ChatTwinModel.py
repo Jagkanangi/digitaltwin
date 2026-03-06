@@ -4,9 +4,10 @@ from instructor import Instructor, from_litellm, from_provider
 from functools import singledispatchmethod
 from litellm import completion
 from externalservices.Weather import WeatherService
-from typing import List
+from typing import List, Optional
 from decorators.AutoLog import log_vo
 import logging
+from threading import Lock
 # from pydantic import BaseModel, Field
 from vo.Models import GeneralChat, Weather, Contact, Choices
 from utils.SystemConfig import config
@@ -26,6 +27,9 @@ class ChatTwin(AbstractChatClient):
     
     It uses the 'instructor' library to enforce structured output from the LLM using Pydantic models.
     """
+    _client_instance: Optional[Instructor] = None
+    _client_lock = Lock()
+
     def __init__(self, model_name=config.system.models.llm_model, model_key="", model_role_type="You are an assistant"):
         """
         Initializes the ChatTwin model.
@@ -36,32 +40,29 @@ class ChatTwin(AbstractChatClient):
             model_role_type (str): The system prompt defining the AI's persona.
         """
         super().__init__(model_name, model_key, model_role_type=model_role_type)
-        self.client : Instructor
         self.num_calls = 0
-        self.llama_client : Instructor
 
 
     def initialize_client(self):
         """
-        Initializes the 'instructor' client.
+        Initializes the 'instructor' client as a singleton.
         
         The instructor library wraps the litellm completion call, enabling the use of 
         'response_model' to get validated Pydantic objects instead of raw JSON.
         """
         self.vector_db_service = VectorDBService()
-        try:
-            self.client = from_litellm(completion)
-            logger.info("Instructor client initialized successfully using litellm.")
-        except Exception as e:
-            logger.error(f"Failed to initialize instructor client: {e}", exc_info=True)
-            raise
-        # try:
-        #     # Using from_litellm for intent provider to ensure synchronous operation
-        #     self.intent_provider_client = from_litellm(completion)
-        #     logger.info("Instructor client for intent initialized successfully using litellm.")
-        # except Exception as e:
-        #     logger.error(f"Failed to initialize intent provider client: {e}", exc_info=True)
-        #     raise
+        
+        if ChatTwin._client_instance is None:
+            with ChatTwin._client_lock:
+                if ChatTwin._client_instance is None:
+                    try:
+                        ChatTwin._client_instance = from_litellm(completion)
+                        logger.info("Instructor client initialized successfully as a singleton.")
+                    except Exception as e:
+                        logger.error(f"Failed to initialize instructor client: {e}", exc_info=True)
+                        raise
+        
+        self.client = ChatTwin._client_instance
 
     @singledispatchmethod    
     def process_llm_tool_call(self, bm, completion) -> bool:

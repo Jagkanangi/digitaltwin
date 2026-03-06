@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, AliasChoices
 from typing import Union, Any
-from src.vo.Metadata import Metadata
+from vo.Metadata import Metadata
 
 __all__ = ["Weather", "GeneralChat", "Contact", "WeatherReport", "Choices", "SessionState", "SearchResult"]
 
@@ -24,7 +24,7 @@ class Contact(BaseModel):
     """
     name : str = Field(description="Name of the user")
     email : str = Field(description="Email of the user")
-    phone : str | None = Field(description="Phone number of the user")
+    phone : str | None = Field(default=None, description="Phone number of the user")
 
 
 
