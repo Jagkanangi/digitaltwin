@@ -10,6 +10,8 @@ steps:
     id: 'Build'
     args: 
       - 'build'
+      - '--target'
+      - 'production'
       - '-t'
       - '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_IMAGE_NAME}:$COMMIT_SHA'
       - '.'
