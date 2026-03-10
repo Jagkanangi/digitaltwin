@@ -8,6 +8,8 @@ steps:
   # STEP 1: Build the container image using your Dockerfile
   - name: 'gcr.io/cloud-builders/docker'
     id: 'Build'
+    env:
+        - 'DOCKER_BUILDKIT=1'
     args: 
       - 'build'
       - '--target'
