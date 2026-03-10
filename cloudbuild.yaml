@@ -43,10 +43,9 @@ steps:
       # Replace with your environment variable and secret name
       - '--set-secrets=YOUR_ENV_VAR_NAME=YOUR_SECRET_NAME:latest'
       # The following are from your previous file. You may need to update them.
-      - '--vpc-egress'
-      - 'all-traffic'
-      - '--vpc-connector'
-      - 'projects/YOUR_PROJECT_ID/locations/YOUR_REGION/connectors/YOUR_CONNECTOR_NAME'
-
+      - '--network=google_compute_network.vpc_network.kindnus-digital-twin-vpc' # Replace with your VPC name
+      - '--subnet=google_compute_subnetwork.vpc_subnet.kindnus-digital-twin-subnet' # Replace with your Subnet name
+      - '--vpc-egress=private-ranges-only'
+      
 options:
   logging: CLOUD_LOGGING_ONLY

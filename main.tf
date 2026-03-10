@@ -24,7 +24,8 @@ variable "gcp_service_list" {
     "appoptimization.googleapis.com",     # App Optimize API
     "iamcredentials.googleapis.com",      # IAM Service Account Credentials API
     "serviceusage.googleapis.com",        # Service Usage API
-    "storage.googleapis.com"              # Cloud Storage API
+    "storage.googleapis.com",              # Cloud Storage API
+    "vpcaccess.googleapis.com"             # VPC Access API
   ]
 }
 
@@ -271,7 +272,7 @@ resource "google_vpc_access_connector" "connector" {
   }
 
   # We only need a small machine for this tunnel
-  machine_type = "$(var.domain_name)-f1-micro"
+  machine_type = "e2-micro"
 }
 
 # ============================================================
