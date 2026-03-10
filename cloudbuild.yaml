@@ -1,5 +1,5 @@
 substitutions:
-  _REPO_NAME: chattwin-api
+  _REPO_NAME: my-profile-website
   _LOCATION: northamerica-northeast2
   _IMAGE_NAME: digital-twin-api-service
   _SERVICE_NAME: digital-twin-api-service
