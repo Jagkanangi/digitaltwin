@@ -1,0 +1,24 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: YOUR_SERVICE_NAME # Cloud Build will override this, but it's required
+spec:
+  template:
+    spec:
+      containers:
+      - env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: OPENAI_API_KEY
+              key: "latest"
+        - name: CHROMA_SERVER_AUTH_CREDENTIALS
+          valueFrom:
+            secretKeyRef:
+              name: CHROMA_SERVER_AUTH_CREDENTIALS
+              key: "latest"
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: REDIS_PASSWORD
+              key: "latest"
