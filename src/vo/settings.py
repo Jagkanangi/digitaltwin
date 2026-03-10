@@ -53,7 +53,8 @@ class Settings(BaseSettings):
         env_nested_delimiter='__',
         env_file=('.env', '.env.shared'),
         env_file_encoding='utf-8',
-        extra='ignore'
+        extra='ignore',
+        case_sensitive=False
     )
 
 

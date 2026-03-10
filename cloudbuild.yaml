@@ -1,0 +1,48 @@
+substitutions:
+  _REPO_NAME: chattwin-api
+  _LOCATION: northamerica-northeast2
+  _IMAGE_NAME: digital-twin-api-service
+  _SERVICE_NAME: digital-twin-api-service
+
+steps:
+  # STEP 1: Build the container image using your Dockerfile
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Build'
+    args: 
+      - 'build'
+      - '-t'
+      - '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_IMAGE_NAME}:$COMMIT_SHA'
+      - '.'
+
+  # STEP 2: Push the image to your Artifact Registry warehouse
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Push'
+    args: 
+      - 'push'
+      - '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_IMAGE_NAME}:$COMMIT_SHA'
+
+  # STEP 3: Deploy the image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'Deploy'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image' 
+      - '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_IMAGE_NAME}:$COMMIT_SHA'
+      - '--region'
+      - '${_LOCATION}'
+      - '--allow-unauthenticated'
+      - '--max-instances'
+      - '2'
+      # Replace with your environment variable and secret name
+      - '--set-secrets=YOUR_ENV_VAR_NAME=YOUR_SECRET_NAME:latest'
+      # The following are from your previous file. You may need to update them.
+      - '--vpc-egress'
+      - 'all-traffic'
+      - '--vpc-connector'
+      - 'projects/YOUR_PROJECT_ID/locations/YOUR_REGION/connectors/YOUR_CONNECTOR_NAME'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

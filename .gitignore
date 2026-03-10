@@ -10,3 +10,5 @@ logs/
 *.egg-info/
 chroma_data/
 redis_data/
+*.tfvars
+justfile

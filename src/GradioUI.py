@@ -9,6 +9,10 @@ logger = logging.getLogger(__name__)
 
 REST_SERVICE_URL = config.ui_settings.chat_service_url
 
+default_config = {
+    "chat_service_url": "http://localhost:8000/chat"
+}
+
 def gradio_function(message: str, history, session_state: SessionState):
     session_id = session_state.get_from_session("session_id")
     
