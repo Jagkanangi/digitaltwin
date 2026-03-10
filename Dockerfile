@@ -22,4 +22,5 @@ FROM base AS production
 RUN uv sync --frozen --no-dev
 # We ONLY copy the source code, NOT the tests
 COPY src/ ./src/
-CMD ["python", "src/RestService.py"]
+# We run the app. 
+CMD ["uv", "run", "python", "src/RestService.py"]
