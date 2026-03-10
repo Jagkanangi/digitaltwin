@@ -58,7 +58,7 @@ class Settings(BaseSettings):
     )
 
 
-    port: int = 8000
+    port: int = Field(default=8080, validation_alias='PORT')
     host: str ="0.0.0.0"
     chroma_server_auth_credentials : str = Field(default=..., min_length=1)
     redis_password : str = Field(default=..., min_length=1)
