@@ -1,6 +1,6 @@
 # --- STAGE 1: BASE  ---
 FROM python:3.12-slim AS base
-ENV PYTHONUNBUFFERED=1 \
+ENV PYTHONUNBUFFERED=1 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
@@ -20,5 +20,5 @@ FROM base AS production
 RUN uv sync --frozen --no-dev
 # We ONLY copy the source code, NOT the tests
 COPY src/ ./src/
-# We run the app. 
+# We run the app.
 CMD ["uv", "run", "python", "src/RestService.py"]
