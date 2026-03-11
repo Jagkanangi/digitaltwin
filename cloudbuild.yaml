@@ -43,8 +43,9 @@ steps:
       # Replace with your environment variable and secret name
       - '--set-secrets=OPENAI_API_KEY=OPENAI_API_KEY:latest, CHROMA_SERVER_AUTH_CREDENTIALS=CHROMA_SERVER_AUTH_CREDENTIALS:latest, REDIS_PASSWORD=REDIS_PASSWORD:latest'
       # The following are from your previous file. You may need to update them.
-      - '--network=kindnus-digital-twin-vpc' # Replace with your VPC name
-      - '--subnet=kindnus-digital-twin-subnet' # Replace with your Subnet name
+      #- '--network=kindnus-digital-twin-vpc' # Replace with your VPC name
+      #- '--subnet=kindnus-digital-twin-subnet' # Replace with your Subnet name
+      - '--vpc-connector=kindnus-run-vpc-connector'
       - '--vpc-egress=private-ranges-only'
       
 options:
