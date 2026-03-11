@@ -40,13 +40,24 @@ steps:
       - '--allow-unauthenticated'
       - '--max-instances'
       - '2'
-      # Replace with your environment variable and secret name
-      - '--set-secrets=OPENAI_API_KEY=OPENAI_API_KEY:latest, CHROMA_SERVER_AUTH_CREDENTIALS=CHROMA_SERVER_AUTH_CREDENTIALS:latest, REDIS_PASSWORD=REDIS_PASSWORD:latest'
+      # Replace with environment variable and secret name -> NOTE: DO NOT USE SPACES AFTER COMMAS gcloud might not like it
+      - '--set-secrets=OPENAI_API_KEY=OPENAI_API_KEY:latest,CHROMA_SERVER_AUTH_CREDENTIALS=CHROMA_SERVER_AUTH_CREDENTIALS:latest,REDIS_PASSWORD=REDIS_PASSWORD:latest'
       # The following are from your previous file. You may need to update them.
-      #- '--network=kindnus-digital-twin-vpc' # Replace with your VPC name
-      #- '--subnet=kindnus-digital-twin-subnet' # Replace with your Subnet name
       - '--vpc-connector=kindnus-run-vpc-connector'
       - '--vpc-egress=private-ranges-only'
       
 options:
   logging: CLOUD_LOGGING_ONLY
+
+
+
+
+
+# 4. Deployment Args for Cloud Run
+- 'run'
+- 'deploy'
+- '${_SERVICE_NAME}'
+- '--vpc-connector=my-connector'         # Connects your app to the bridge
+- '--vpc-egress=private-ranges-only'    # Tells app to use the bridge for Redis
+- '--set-env-vars=REDIS_HOST=10.x.x.x'  # The IP from 'gcloud redis instances describe'
+- '--set-secrets=REDIS_PASSWORD=REDIS_PASSWORD:latest' # The password from 'gcloud redis instances get-auth-string'

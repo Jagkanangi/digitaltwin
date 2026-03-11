@@ -25,7 +25,9 @@ variable "gcp_service_list" {
     "iamcredentials.googleapis.com",      # IAM Service Account Credentials API
     "serviceusage.googleapis.com",        # Service Usage API
     "storage.googleapis.com",              # Cloud Storage API
-    "vpcaccess.googleapis.com"             # VPC Access API
+    "vpcaccess.googleapis.com",             # VPC Access API
+    "servicenetworking.googleapis.com",     #vpc peerings
+    "redis.googleapis.com"            # Memorystore for Redis API
   ]
 }
 
