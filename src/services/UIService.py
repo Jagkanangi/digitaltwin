@@ -17,6 +17,7 @@ class UIService():
         self.redis_service = RedisService()
         self.system_prompt: str = mybio["text"]
         print (f"System prompt loaded: {self.system_prompt[:100]}...")
+        
 
     def input_guardrails(self, chat_twin : ChatTwin, message : str, number_of_calls : int) -> tuple[bool, str]:
         message = message.replace("<info>", "")

@@ -60,4 +60,5 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
+    print(f"Starting REST service on {config.host}:{config.port} with allowed origins: {origins}")
     uvicorn.run(app, host=config.host, port=config.port)
