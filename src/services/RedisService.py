@@ -46,6 +46,7 @@ class RedisService:
                 self._initialized = True
             except Exception as e:
                 logger.error(f"Failed to connect to Redis: {e}")
+                print(f"Failed to connect to Redis: {e}")
                 raise
 
     def set(self, key: str, value: any, expire: int = None):
