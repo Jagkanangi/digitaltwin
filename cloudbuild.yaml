@@ -46,7 +46,6 @@ steps:
       - '--network='
       - '--subnet='
       - '--vpc-connector=kindnus-run-vpc-connector'
-      - '--clear-network-interfaces' # This clears any accidental Direct VPC settings
       - '--vpc-egress=private-ranges-only'
       
 options:
