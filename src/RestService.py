@@ -23,6 +23,8 @@ app = FastAPI(
     redoc_url=None
 )
 
+port = int(os.environ.get("PORT", 8080))
+
 # Add CORS middleware
 origins = config.system.allowed_origins.split(",") if config.system.allowed_origins != "*" else ["*"]
 
