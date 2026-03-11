@@ -26,12 +26,21 @@ class RedisService:
             if hasattr(self, '_initialized'):
                 return
             try:
-                self.client = redis.Redis(
+                self.client =redis.Redis(
                     host=config.connection.redis_host,
-                    port=config.connection.redis_port,
+                    port=443,                 # Cloud Run entry point is always 443
                     password=config.redis_password,
-                    decode_responses=False # We need bytes for pickle, but we can decode for JSON if needed
+                    ssl=True,                 # This is mandatory for Cloud Run URLs
+                    ssl_cert_reqs=None,       # Required because Cloud Run certs are managed
+                    decode_responses=False
                 )
+
+                # self.client = redis.Redis(
+                #     host=config.connection.redis_host,
+                #     port=config.connection.redis_port,
+                #     password=config.redis_password,
+                #     decode_responses=False # We need bytes for pickle, but we can decode for JSON if needed
+                # )
                 self.client.ping()
                 logger.info(f"Connected to Redis at {config.connection.redis_host}:{config.connection.redis_port}")
                 self._initialized = True
