@@ -15,7 +15,6 @@ class UIService():
 
     def __init__(self):
         print (f"System prompt loading:")
-        self.redis_service = RedisService()
         self.system_prompt: str = mybio["text"]
         print (f"System prompt loaded: {self.system_prompt[:100]}...")
 
@@ -48,6 +47,7 @@ class UIService():
         logger.info("Embedding all files from the data directory is complete.")
     
     def chatToTwin(self, prompt : str, session_id: str) -> str:
+        self.redis_service = RedisService()
         redis_key = f"{RedisService.CHAT_TWIN}:{session_id}"
 
         # Get message history from Redis

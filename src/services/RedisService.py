@@ -26,6 +26,7 @@ class RedisService:
             if hasattr(self, '_initialized'):
                 return
             try:
+                print(f"Connecting to Redis at {config.connection.redis_host}:{config.connection.redis_port}...")
                 self.client =redis.Redis(
                     host=config.connection.redis_host,
                     port=config.connection.redis_port,                 # Cloud Run entry point is always 443
@@ -34,7 +35,7 @@ class RedisService:
                     ssl_cert_reqs=None,       # Required because Cloud Run certs are managed
                     decode_responses=False
                 )
-
+                print("Pinging Redis to verify connection...")
                 # self.client = redis.Redis(
                 #     host=config.connection.redis_host,
                 #     port=config.connection.redis_port,
