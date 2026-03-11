@@ -44,6 +44,7 @@ steps:
       - '--set-secrets=OPENAI_API_KEY=OPENAI_API_KEY:latest,CHROMA_SERVER_AUTH_CREDENTIALS=CHROMA_SERVER_AUTH_CREDENTIALS:latest,REDIS_PASSWORD=REDIS_PASSWORD:latest'
       # The following are from your previous file. You may need to update them.
       - '--vpc-connector=kindnus-run-vpc-connector'
+      - '--clear-network-interfaces' # This clears any accidental Direct VPC settings
       - '--vpc-egress=private-ranges-only'
       
 options:
