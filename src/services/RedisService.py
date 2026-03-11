@@ -28,7 +28,7 @@ class RedisService:
             try:
                 self.client =redis.Redis(
                     host=config.connection.redis_host,
-                    port=443,                 # Cloud Run entry point is always 443
+                    port=config.connection.redis_port,                 # Cloud Run entry point is always 443
                     password=config.redis_password,
                     ssl=True,                 # This is mandatory for Cloud Run URLs
                     ssl_cert_reqs=None,       # Required because Cloud Run certs are managed
