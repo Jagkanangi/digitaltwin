@@ -22,7 +22,7 @@ RUN uv sync --frozen --no-dev
 COPY src/ ./src/
 
 # 3. THE GPS: Set the PYTHONPATH 
-# This allows 'from utils...' to work even though utils is inside src/
+# cloud and local vageries of PYTHONPATH can be a nightmare. Setting it explicitly to include both the root and src ensures that imports work regardless of how the app is run (locally or in Cloud Run).
 ENV PYTHONPATH="/app:/app/src"
 
 # 4. THE ENTRYPOINT 
