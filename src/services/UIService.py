@@ -16,6 +16,7 @@ class UIService():
     def __init__(self):
         self.redis_service = RedisService()
         self.system_prompt: str = mybio["text"]
+        print (f"System prompt loaded: {self.system_prompt[:100]}...")
 
     def input_guardrails(self, chat_twin : ChatTwin, message : str, number_of_calls : int) -> tuple[bool, str]:
         message = message.replace("<info>", "")
@@ -35,6 +36,7 @@ class UIService():
             can_continue = False
             err_message = "I know you would like to know more about me. Please give me your email and optionally a phone number and I will get in touch with you"
         return can_continue, err_message
+
 
 
     def process_startup_files(self):
