@@ -21,4 +21,4 @@ RUN uv sync --frozen --no-dev
 # We ONLY copy the source code, NOT the tests
 COPY src/ ./src/
 # We run the app.
-CMD ["uv", "run", "python", "src/RestService.py"]
+CMD ["sh", "-c", "uv run uvicorn src.RestService:app --host 0.0.0.0 --port ${PORT}"]
