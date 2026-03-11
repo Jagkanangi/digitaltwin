@@ -48,16 +48,3 @@ steps:
       
 options:
   logging: CLOUD_LOGGING_ONLY
-
-
-
-
-
-# 4. Deployment Args for Cloud Run
-- 'run'
-- 'deploy'
-- '${_SERVICE_NAME}'
-- '--vpc-connector=my-connector'         # Connects your app to the bridge
-- '--vpc-egress=private-ranges-only'    # Tells app to use the bridge for Redis
-- '--set-env-vars=REDIS_HOST=10.x.x.x'  # The IP from 'gcloud redis instances describe'
-- '--set-secrets=REDIS_PASSWORD=REDIS_PASSWORD:latest' # The password from 'gcloud redis instances get-auth-string'
