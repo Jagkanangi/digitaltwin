@@ -5,6 +5,7 @@ import logging
 from utils.LoggerInit import init as initialize_logger
 from services.UIService import UIService
 from utils.SystemConfig import config
+import os
 
 # Initialize logger and project files
 initialize_logger()
