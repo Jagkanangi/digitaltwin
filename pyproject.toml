@@ -9,6 +9,7 @@ dependencies = [
     "chromadb>=1.5.2",
     "fastapi>=0.134.0",
     "gradio==5.16.0",
+    "google-cloud-storage>=2.14.0",
     "httpx>=0.28.1",
     "instructor>=1.14.5",
     "litellm>=1.81.11",
