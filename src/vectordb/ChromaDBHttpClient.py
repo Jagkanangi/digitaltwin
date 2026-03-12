@@ -57,13 +57,13 @@ class ChromaDBHttpClient(AbstractDB):
             with ChromaDBHttpClient._client_lock:
                 if ChromaDBHttpClient._client is None:
                     try:
-                        # import httpx
-                        # print(f'Attempting to connect to ChromaDB at {self._host}:{self._port}...')
-                        # r = httpx.get(
-                        #     "http://chromadb-service.northamerica-northeast2.run.internal:8000/api/v1/heartbeat",
-                        #     timeout=3
-                        # )
-                        # print("Chroma heartbeat:", r.status_code, r.text)
+                        import httpx
+                        print(f'Attempting to connect to ChromaDB at {self._host}:{self._port}...')
+                        r = httpx.get(
+                            "http://chromadb-service.northamerica-northeast2.run.internal:8000/api/v1/heartbeat",
+                            timeout=3
+                        )
+                        print("Chroma heartbeat:", r.status_code, r.text)
                         ChromaDBHttpClient._client = chromadb.HttpClient(host=self._host, port=self._port, ssl=False, headers={"Authorization": f"Bearer {config.chroma_server_auth_credentials}"})
                         logger.info(f"Connected to ChromaDB at {self._host}:{self._port}")
                     except Exception as e:
