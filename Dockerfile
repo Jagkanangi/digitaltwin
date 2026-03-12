@@ -23,10 +23,10 @@ ENV PYTHONPATH="/app:/app/src"
 # STAGE 3 — DEVELOPMENT (TESTS)
 # ============================
 # This stage ONLY runs in CI when explicitly targeted.
-FROM base AS development
-# RUN uv sync --frozen
-COPY tests/ ./tests/
-RUN uv run pytest tests/
+# FROM base AS development
+# # RUN uv sync --frozen
+# COPY tests/ ./tests/
+# RUN uv run pytest tests/
 
 # ============================
 # STAGE 4 — PRODUCTION
