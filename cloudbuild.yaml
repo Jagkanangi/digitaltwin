@@ -41,7 +41,7 @@ steps:
     - '--set-secrets=OPENAI_API_KEY=OPENAI_API_KEY:latest,CHROMA_SERVER_AUTH_CREDENTIALS=CHROMA_SERVER_AUTH_CREDENTIALS:latest,REDIS_PASSWORD=REDIS_PASSWORD:latest'
     - '--vpc-connector=kindnus-run-vpc-connector'
     - '--vpc-egress=private-ranges-only'
-    - '--ingress internal'
+    - '--ingress=internal'
 
 
 
