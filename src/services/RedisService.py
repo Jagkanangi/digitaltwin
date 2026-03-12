@@ -27,21 +27,24 @@ class RedisService:
                 return
             try:
                 print(f"Connecting to Redis at {config.connection.redis_host}:{config.connection.redis_port}...")
-                import socket
-                s = socket.socket()
-                s.settimeout(3)
-                s.connect((config.connection.redis_host, 6379))
-                print("Connected to Redis!")
+                # import socket
+                # s = socket.socket()
+                # s.settimeout(3)
+                # s.connect((config.connection.redis_host, 6379))
+                # print("Connected to Redis!")
 
 
-                self.client =redis.Redis(
-                    host=config.connection.redis_host,
-                    port=config.connection.redis_port,                 # Cloud Run entry point is always 443
-                    password=config.redis_password,
-                    ssl=True,                 # This is mandatory for Cloud Run URLs
-                    ssl_cert_reqs=None,       # Required because Cloud Run certs are managed
+                self.client = redis.Redis(
+                    host=config.connection.redis_host,   # private IP, e.g. 10.x.x.x
+                    port=config.connection.redis_port,   # usually 6379
+                    password=config.redis_password,      # only if AUTH is enabled
+                    socket_connect_timeout=5,            # prevents Cloud Run hangs
+                    socket_timeout=5,                    # prevents read hangs
+                    socket_keepalive=True,               # recommended for Cloud Run
+                    ssl=False,                           # Memorystore does NOT use TLS
                     decode_responses=False
                 )
+
                 print("Pinging Redis to verify connection...")
                 # self.client = redis.Redis(
                 #     host=config.connection.redis_host,
