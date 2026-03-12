@@ -16,14 +16,14 @@ COPY pyproject.toml uv.lock ./
 # This stage isolates dependency resolution so production never touches the test stage.
 FROM base AS builder
 RUN uv sync --frozen --no-dev
+COPY src/ ./src/
 
 # ============================
 # STAGE 3 — DEVELOPMENT (TESTS)
 # ============================
 # This stage ONLY runs in CI when explicitly targeted.
 FROM base AS development
-RUN uv sync --frozen
-COPY src/ ./src/
+# RUN uv sync --frozen
 COPY tests/ ./tests/
 RUN uv run pytest tests/
 
@@ -31,9 +31,6 @@ RUN uv run pytest tests/
 # STAGE 4 — PRODUCTION
 # ============================
 FROM builder AS production
-
-# Copy only the source code (no tests)
-COPY src/ ./src/
 
 # Explicit PYTHONPATH to avoid import weirdness
 ENV PYTHONPATH="/app:/app/src"
