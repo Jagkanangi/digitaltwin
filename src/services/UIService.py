@@ -17,6 +17,7 @@ class UIService():
         print (f"System prompt loading:")
         self.system_prompt: str = mybio["text"]
         print (f"System prompt loaded: {self.system_prompt[:100]}...")
+        self.redis_service = RedisService()
 
 
     def input_guardrails(self, chat_twin : ChatTwin, message : str, number_of_calls : int) -> tuple[bool, str]:
@@ -47,7 +48,6 @@ class UIService():
         logger.info("Embedding all files from the data directory is complete.")
     
     def chatToTwin(self, prompt : str, session_id: str) -> str:
-        self.redis_service = RedisService()
         redis_key = f"{RedisService.CHAT_TWIN}:{session_id}"
 
         # Get message history from Redis
