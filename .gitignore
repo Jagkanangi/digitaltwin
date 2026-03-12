@@ -6,7 +6,6 @@ __pycache__
 *.pyc
 .profile
 logs/
-/data/
 *.egg-info/
 chroma_data/
 redis_data/

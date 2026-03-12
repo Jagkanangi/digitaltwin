@@ -1,0 +1,252 @@
+Jag Kanangi
+jagkanangi@gmail.com
+
+Executive Summary:
+
+I have over twenty five years of industry experience. My expertise lies in the Design, Development, Implementation and Documentation of software systems using Web Technologies and Object-Oriented methodologies.  I also have demonstrated leading development teams that consisted of varying skill levels. I have extensively used and implemented solutions using Java, J2EE, Spring, Hibernate, Struts,  WebSphere/WebLogic Application Servers, Apache/IBM Http Web Servers, OOD, UML, Rational Rose/XDE, RAD, Oracle, DB2 and Sybase. 
+
+
+Year : 2021-2023
+
+I had taken a sabbatical to pursue my other personal interests. During this time while I kept myself updated with technology, the explosion of LLM and various AI and ML models have firmly got my focus back to the thing I love most - Designing, building and deploying a robust, maintainable and cost-efficient System. 
+
+Focus shift: 
+
+Even though I have extensive experience and excelled in Java and related technologies, I have shifted my focused on AI technology specifically using Python and the many libraries that facilitate building a robust ML systems. I leverage my experience deploying enterprise systems to help companies successfully navigate the challenge that plague most AI projects that is having a system that not only can deal with data drifts and concept shifts but also have robust cost saving strategies such as having varied serving strategies that include dynamic and static responses.
+
+A well thought and designed system, that can track training models and metrics is essential for a successful deployment. I am proficient with tools such as Metaflow, MLflow etc to create such systems.
+
+I am passionate about teaching and mentoring. I also mentor ML and AI cohorts for Super Data Science in my free time. 
+
+Role Interested in : AI related roles. 
+
+Skills Summary:
+
+Environments: 
+
+OS : Windows, unix and Linux
+
+Probabilistic System skills:
+
+Vibe coding with Python, pytorch, sklearn, pydantic. 
+
+Cloud Deployments : GCP, Azure and AWS
+
+Containers : Docker
+
+ML Tools : 
+
+Orchestration frameworks : Metaflow and Langchain
+Tracking tool : MLflow
+Databases : ChromaDB, Pinecone, Weaviate
+
+
+Deterministic System skills
+
+Software Languages : Java
+
+Framework: J2EE/JEE, Struts 1.0/1.1, Hibernate, Spring 2.5
+
+Databases : Oracle, Sybase, Microsoft SQL Server 6.0 and DB2
+
+Application Servers : WebSphere Application Servers, WebLogic
+
+WebServers : Apache Tomcat/IIS/IBM HttpServers
+
+Industries : Financial, Energy, Gaming, Insurance and RealEstate.
+
+Public Sectors : Ontario Ministry of Environment, Ontario Ministry of Finance, Consumer and Business Services
+
+
+Publicly available GitHub Repo for Digital Twin and Deployment of an ML system at https://github.com/Jagkanangi
+
+Digital Twin Website : twin.kindnus.ca
+
+Website : www.kindnus.ca
+
+
+Work Experience:
+
+Year : 2024 - present
+
+Company - Coveur : Insurance clients James River and Elephant with predictive AI. 
+
+Role - Technical Lead. 
+
+
+1) Assisted Couver with their clients to help predict client churn.
+
+
+
+Year : 2021-2024
+
+Sabbatical years.
+
+
+Date 2019 - 2020
+
+Company  - Avesdo.
+
+Role - Director of Engineering
+
+Product:  
+Avesdo - Real estate transaction management Software for developers/marketing agencies of new homes. 
+Offplan - e-commerce platform for realtors to browse, share and make an initial down payment for homes.
+
+1) As part of this role you helped the engineering team become more efficient and effective. 
+2) Save costs by 
+
+    a) Making the team leaner to deliver faster and on time 
+    b) Enrolled the company with Microsoft after negotiating the terms for joining a program that was available for some startups resulting in free infrastructure costs for an entire year.
+    c) Ensured that the team was fully cross-functional by mentoring developers to deliver, test and deploy the software that they developed thereby helping them learn to create a robust solution.
+
+3) Architected an innovative and one of a kind online portal called Offplan. 
+4) Worked with vendors such as stripe to help negotiate  implement the payment portal.
+5) Worked with the COO to create a health program by connecting with Goodlife fitness to provide discounted gym memberships to all employees.
+
+
+2013 - 2019
+
+Ontario Government -  Ministry of Environment
+
+Role : Java Consultant/Team Lead
+ 
+Permission enterprise platform (PEP) / Modernization of Approvals (MofA)
+
+
+Project Description : The Ministry of Environment required to modernize its approvals through process changes in particular changes aimed at allowing businesses to engage with the environment approval team of engineers and mangers through an enterprise online portal. This also enabled in allowing the public to easily search an access environment portal to obtain information related to approvals for private and public entities to better understand the environmental impact and preventive measures taken to keep pollutants from contaminating the environment.
+
+As part of my role I was heavily focused on Designing, developing and deployment of the platform.
+
+1) Designed, developed and deployed multiple webservices including payment, ECA and EASR application submission and a configuration service that helped configure the different application the ministry required via updates to database tables.
+2) The configuration service helped reduce the massive cost that was required to get external vendors to build and deploy individual application. 
+3) Played a key role and was an instrumental resource to help coordinate, work and help communicate with across ministries teams such as SSO team (OneSource), the deployment division, the payment division etc.
+4) Instrumental and the lead contact for integration of various internal and external webservices and systems.
+5) Was instrumental with ensuring the platform was available 24/7/365 by working along with the production support team.
+6) Worked with the QA Lead and the development manager to prioritize bugs for the team.
+7) Mentored Junior developer and students that joined the ministry for their co-op term.
+8) Worked with vendors such as IBM to integrate different permission systems so they can live under one platform.
+8) Designed, developed and integrated the payment webservice to connect to the governments CCPay platform and ensure transaction integrity between product delivery and payment. The service was very robust and the hallmark was it had no bugs reported from initial deployment through the maturity of the platform.
+
+
+
+2012 - 2013
+
+Ontario Government - Ministry of Environment
+
+Water Taking and Report System (WTRS)
+
+Role: Senior java Consultant
+
+Water Taking Reporting System (WTRS) was developed by MoE for clients to report their water intake to the government. Regulation required large industrial and other large users of water resources to report their yearly water usage.
+WTRS is a fully secured web based system that not only issued the permit to take water but also report daily water taking data to the ministry. 
+
+The client had requested customer information to be managed using Siebel. 
+I was involved in detail analysis of data sharing between the existing WTRS oracle database and Siebel database and involved integration between Java and Siebel
+I worked with the manager with risk analysis in terms of security and migration.
+I also worked with the manager to help document the resource requirement and the projected costs to help the ministry budget and get approval for the project.
+I was also involved with the upgrade of the platform to current version of the technology from EJB2 to EJB3 and JPA 1.0 along with redesign of the core System to alleviate performance issues that prevented timely year end rollover of water taking permits.
+Designed, developed and built an exception framework that was used across projects.
+
+
+2011- 2012
+
+Company - TD Bank
+
+Role: Java Consultant/IT Specialist
+Part of the team that helped build an Appraisal Web Service (AWS) for TD to be able to request and process appraisal on properties using external vendors. TD used an in-house application called credit link (CLK) that integrates with other services including AWS to assist TD employees and agents manage and handle the daily business of the bank. The business was using a manual process to appraise a property that involved lot of email and phone communication with the vendors to get a property appraised. 
+
+2011 
+
+Government : Ministry of Environment
+
+Role : Java Consultant
+
+Project - Water Taking Reporting System (WTRS)
+
+
+2010 - 2011
+Company -TD Bank
+Role: Java Consultant/IT Specialist
+
+Project Credit Origination System (COS)
+
+TD Bank had a requirement to develop a Credit Origination System (COS) that would facilitate consumers to create Visa and ODP applications. An existing System called Credit Link (CLK) was previously used to create these application however access to this System was restricted to only TD Internal and Branch Employees. COS was designed as a web service to enable customers to directly create and apply for Visa and ODP products. One of the consumers of this web service was a web client. The COS Web Service was built using Spring and Axis framework. Existing service layer and Hibernate were used to connect to IMS Host database and DB2. 
+Designed and developed rules that were used for validating applications before creating/updating them.
+Designed and developed strategies that used a combination of rules and business logic to determine the validity of an application.
+
+Also helped with enhancement of other TD plaforms such as iMobile, Credit Link, Eclipse
+
+
+
+2008 - 2010
+Government : Ministry Of Finance
+Programmer Analyst
+       
+Worked on a Salary Benefit and Projection System (SBPS) that is used by financial analysts at the ministry to project the salaries of employees in the government that includes merits and benefits for all employees. This is used by analyst to budget the government s expense for the fiscal year. The System was developed using J2EE technologies and a custom framework used by CSDB. Struts 1.1 was used as the framework to process and present web requests.  
+
+2006 - 2007
+Honda Canada Inc.						
+Sr Java Consultant
+       
+Honda Financial Services (HFS) required a website for its customers to view and maintain their accounts. The website presented HFS customers with the ability to make payments, change and maintain account profiles, submit application for pre-approval for new vehicles, provide existing lease customers the ability to re-finance their leased vehicles, access owner manuals and vehicle information, ability to correspond with HFS through email.
+Honda Canada Inc provides its dealers with a Dealer Communication System (DCS) that is used to leverage the dealers with information that would assist them in their business. Honda Financial Services integrates with DCS to provide dealers with financing and credit information. Designed and developed multiple applications that were used by HFS and external vendor sites.
+
+Created System artifacts such as External design documents, internal design documents for Pre-Approval of Credit for new vehicles and re-financing of existing lease accounts that were approaching maturity, administration functionality for the website, Insurance and owner s manual and batch processes that were used to populate the website database with latest customer information on a nightly basis. The input for the document required interaction with the business to extract business requirements and worked on SSO integration with DCS
+
+2005 - 2006
+Company Symcor Inc.
+Role : Sr Java Developer
+       
+* Symcor is involved in cheque/statement processing for the major banks of Canada. The project dealt with detecting cheque frauds of potential customers of these banks.  It provides a web enabled interface for customer to reject or accept cheques that were determined as an exception by the system.  Redesig of data model that would help enhance queries that search for post files, issue files and bi-tonal images. Mentoring of junior developers to create and develop coding practices that would enhance the performance.
+
+
+2002 - 2005
+Government - Economic and Business Cluster
+Role: Java Developer							          	
+       
+Designed and developed an Intranet application called VISION for automating the ORG (Office of the Registrar General). Functions such as processing of birth, death, and marriage registrations and issuing of certificates. The project involved re-engineering of a mainframe- based application into a web-enabled application. Web Services were used to communicate between the registration database and the VISION database. IBM WebSphere was used as the application server and various J2EE technologies were used to develop the application. Integral role in the design and development of a workflow framework that was used as part of payments, service delivery and registration modules.
+
+2002
+Company : Enbridge Commercial Services
+Role : Java Developer
+       
+Design and development of J2EE based web architecture known as the Web initiative and data clean up that will replace an existing legacy system, this system will house data and provide critical information based on the data enabling clients of this system (Customer Service Representatives, Gas Contractors, Field Engineers) to locate, trouble shoot existing gas lines or locate precise GPS co-ordinates along with the terrain information for new gas line installations. 
+
+2001 - 2002
+Company - Cartier Financial Partners
+Role - Software Engineer   
+                                                                     
+Design and development of a J2EE based container management system called CCMS that was created to replace an existing proprietary enterprise system. The project also involved managing different user portfolios (advisors, portfolio manager etc) and transactions involving mutual funds, stocks and bonds. Responsibilities included design and development of EJB components and servlets for advisors and clients to retrieve stock quotes, view and manage their portfolio, manage their accounts and retrieve client specific information about companies. Extreme programming practices were used for certain specifications.
+
+
+2001 
+Toronto Municipality - Toronto Police Service
+Role : Software Engineer                                                                       
+       
+Designed and Developed a J2EE based  project known as eCOPS to enable the Metropolitan Toronto Police officers to access information that were otherwise not readily available from their legacy system. The application had varying application clients that included Laptops and PDA s apart from desktops. Responsibilities included designing and developing data objects for interaction between the client and server, development of Enterprise beans that maintained business entities, XML defined dynamic application views using swing components and a customized editor that created and parsed XML data objects. 
+
+1999 - 2001
+Company : UWIN! Corporation (Rhode Island, USA)
+Role : Software Engineer                      		                                                          
+
+Designed and developed a web and J2EE based Gaming application for lottery clients. Responsibilities included generation of user requirements, design documentation and identification of technologies to best manage secure data communication and secure transactions between the Lottery system and the banks, development of enterprise beans and Servlets, design and development of Controllers and Dispatchers that were used to communicate with Financial Systems via a secure protocol and design and development of HTTPS based secure transaction using JSSL API. Part of the team that developed encryption of sensitive customer data.
+
+1999
+
+Company : SRM SYSTEMS AND SOFTWARE
+Role : Software Engineer
+
+1998
+Company : VETRI SOFTWARE INDIA
+Junion Software Engineer                                                                                      
+
+1997
+PROMPT SOFTWARE
+Junior software Engineer                                                                                   
+
+Education: Madras University, Bachelor of Science with a major in Biochemistry (1997).
+
+Formal Certifications and Training:
+
+
