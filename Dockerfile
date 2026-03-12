@@ -1,30 +1,42 @@
-# --- STAGE 1: BASE  ---
+# ============================
+# STAGE 1 — BASE
+# ============================
 FROM python:3.12-slim AS base
-ENV PYTHONUNBUFFERED=1 
+ENV PYTHONUNBUFFERED=1
+
+# Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
+
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
 
-# --- STAGE 2: RUN TESTS ---
-FROM base AS development
-RUN uv sync --frozen 
-COPY src/ ./src/
-COPY tests/ ./tests/
-# If tests fail, the build will stop here
-RUN uv run pytest tests/
-
-# --- STAGE 3: PRODUCTION ---
-FROM base AS production 
-# 1. Install only production dependencies 
+# ============================
+# STAGE 2 — BUILDER (NO TESTS)
+# ============================
+# This stage isolates dependency resolution so production never touches the test stage.
+FROM base AS builder
 RUN uv sync --frozen --no-dev
 
-# 2. Copy the source code 
+# ============================
+# STAGE 3 — DEVELOPMENT (TESTS)
+# ============================
+# This stage ONLY runs in CI when explicitly targeted.
+FROM base AS development
+RUN uv sync --frozen
+COPY src/ ./src/
+COPY tests/ ./tests/
+RUN uv run pytest tests/
+
+# ============================
+# STAGE 4 — PRODUCTION
+# ============================
+FROM builder AS production
+
+# Copy only the source code (no tests)
 COPY src/ ./src/
 
-# 3. THE GPS: Set the PYTHONPATH 
-# cloud and local vageries of PYTHONPATH can be a nightmare. Setting it explicitly to include both the root and src ensures that imports work regardless of how the app is run (locally or in Cloud Run).
+# Explicit PYTHONPATH to avoid import weirdness
 ENV PYTHONPATH="/app:/app/src"
 
-# 4. THE ENTRYPOINT 
-# Uses Cloud Run's $PORT or defaults to 8080 for local testing
+# Cloud Run entrypoint
 CMD ["sh", "-c", "uv run uvicorn src.RestService:app --host 0.0.0.0 --port ${PORT:-8080}"]
