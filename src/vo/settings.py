@@ -65,7 +65,7 @@ class Settings(BaseSettings):
     redis_password : str = Field(default=..., min_length=1)
     connection: ConnectionConfig = Field(default_factory=ConnectionConfig)
     db_retrieval: DBRetrievalConfig = Field(default_factory=DBRetrievalConfig)
-    system: SystemSubConfig = Field(default_factory=SystemSubConfig, validation_alias='APP_ENV')
+    system: SystemSubConfig = Field(default_factory=SystemSubConfig)
     persona_settings: PersonaSettingsConfig = Field(default_factory=PersonaSettingsConfig)
     ui_settings: UISettings = Field(default_factory=UISettings)
     file_locations : FileLocations = Field(default_factory=FileLocations)
