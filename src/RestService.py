@@ -20,7 +20,7 @@ app = FastAPI(
     description="The chat service layer of the Digital Twin project, handling RAG and LLM orchestration.",
     version="1.0.0",
     # Industry Standard: Disable docs in production via Env Var
-    docs_url="/docs" if config.system.env_name == "dev" else None,
+    docs_url="/docs" if config.system.app_env == "dev" else None,
     redoc_url=None
 )
 
