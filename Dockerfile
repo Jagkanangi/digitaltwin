@@ -5,15 +5,20 @@ ENV PYTHONUNBUFFERED=1
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 
 WORKDIR /app
-COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-dev
-COPY src/ ./src/
-ENV PYTHONPATH="/app:/app/src"
 
-# Activate the environment
+# Copy dependency files
+COPY pyproject.toml uv.lock ./
+
+# Install ONLY production dependencies into .venv
+RUN uv sync --frozen --no-dev
+
+# Activate the environment for all future commands
 ENV VIRTUAL_ENV="/app/.venv"
 ENV PATH="/app/.venv/bin:$PATH"
 
+# Copy application code
+COPY src/ ./src/
+ENV PYTHONPATH="/app:/app/src"
 
-# Cloud Run entrypoint
-CMD ["sh", "-c", "uv run uvicorn src.RestService:app --host 0.0.0.0 --port ${PORT:-8080}"]
+# Run the app using the already-installed uvicorn inside .venv
+CMD ["uvicorn", "src.RestService:app", "--host", "0.0.0.0", "--port", "${PORT:-8080}"]
