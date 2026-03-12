@@ -18,6 +18,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 # Copy application code
 COPY src/ ./src/
+copy data/ ./data/
 ENV PYTHONPATH="/app:/app/src"
 
 # Run the app using the already-installed uvicorn inside .venv
