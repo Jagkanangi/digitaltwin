@@ -27,6 +27,13 @@ class RedisService:
                 return
             try:
                 print(f"Connecting to Redis at {config.connection.redis_host}:{config.connection.redis_port}...")
+                import socket
+                s = socket.socket()
+                s.settimeout(3)
+                s.connect((config.connection.redis_host, 6379))
+                print("Connected to Redis!")
+
+
                 self.client =redis.Redis(
                     host=config.connection.redis_host,
                     port=config.connection.redis_port,                 # Cloud Run entry point is always 443
