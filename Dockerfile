@@ -24,7 +24,7 @@ ENV PYTHONPATH="/app:/app/src"
 # ============================
 # This stage ONLY runs in CI when explicitly targeted.
 # FROM base AS development
-# # RUN uv sync --frozen
+# RUN uv sync --frozen
 # COPY tests/ ./tests/
 # RUN uv run pytest tests/
 
