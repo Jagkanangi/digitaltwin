@@ -32,7 +32,7 @@ class ChunkSettingsConfig(BaseModel):
 
 class SystemSubConfig(BaseModel):
     allowed_origins: str = "*"
-    env_name: str = "local"
+    app_env: str = "local"
     models: ModelsConfig = Field(default_factory=ModelsConfig)
     llm_settings: LLMSettingsConfig = Field(default_factory=LLMSettingsConfig)
     llm_intent_provider: LLMIntentProvider = Field(default_factory=LLMIntentProvider)
@@ -46,6 +46,7 @@ class PersonaSettingsConfig(BaseModel):
 class FileLocations(BaseModel):
     document_to_process_dir: str = "data/input_rag"
     document_processed_dir: str = "data/rag_processed"
+    gcp_bucket_name: str = "profile"
 class UISettings(BaseModel):
     chat_service_url: str = "http://localhost:8000/chat"
 class Settings(BaseSettings):
@@ -64,7 +65,7 @@ class Settings(BaseSettings):
     redis_password : str = Field(default=..., min_length=1)
     connection: ConnectionConfig = Field(default_factory=ConnectionConfig)
     db_retrieval: DBRetrievalConfig = Field(default_factory=DBRetrievalConfig)
-    system: SystemSubConfig = Field(default_factory=SystemSubConfig)
+    system: SystemSubConfig = Field(default_factory=SystemSubConfig, validation_alias='APP_ENV')
     persona_settings: PersonaSettingsConfig = Field(default_factory=PersonaSettingsConfig)
     ui_settings: UISettings = Field(default_factory=UISettings)
     file_locations : FileLocations = Field(default_factory=FileLocations)

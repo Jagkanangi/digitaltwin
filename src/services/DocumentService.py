@@ -5,7 +5,13 @@ from embeddings.AbstractEmbeddingModel import AbstractEmbeddingModel
 from services.VectorDBService import VectorDBService
 from vo.Metadata import Metadata
 from typing import Type
-from utils.SystemConfig import config
+from vo.settings import settings
+import tempfile
+
+try:
+    from google.cloud import storage
+except ImportError:
+    storage = None
 
 logger = logging.getLogger(__name__)
 
@@ -18,9 +24,19 @@ class DocumentService:
         """
         Processes each file in a source directory, generates embeddings, saves them to the vector database,
         and then moves the processed file to a destination directory.
+        The source is determined by the application environment ('gcp' or 'local').
         """
-        source_directory = config.file_locations.document_to_process_dir
-        destination_directory = config.file_locations.document_processed_dir
+        if settings.system.app_env == 'gcp':
+            self._process_files_from_gcs(bucket_name)
+        else:
+            self._process_files_from_local_directory(bucket_name)
+
+    def _process_files_from_local_directory(self, bucket_name: str):
+        """
+        Processes files from a local directory.
+        """
+        source_directory = settings.file_locations.document_to_process_dir
+        destination_directory = settings.file_locations.document_processed_dir
         os.makedirs(source_directory, exist_ok=True)
         os.makedirs(destination_directory, exist_ok=True)
 
@@ -36,6 +52,43 @@ class DocumentService:
                     logger.info(f"Finished processing and moved file: {file_name}")
                 except Exception as e:
                     logger.error(f"Failed to process file {file_name}: {e}", exc_info=True)
+
+    def _process_files_from_gcs(self, collection_name: str):
+        """
+        Processes files from a GCS bucket.
+        """
+        if not storage:
+            logger.error("Google Cloud Storage library is not installed. Please install it with 'pip install google-cloud-storage'")
+            return
+            
+        gcs_bucket_name = settings.file_locations.gcp_bucket_name
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(gcs_bucket_name)
+        
+        blobs = bucket.list_blobs()
+        
+        for blob in blobs:
+            if not blob.name.startswith('processed/'):
+                logger.info(f"Processing file from GCS: {blob.name}")
+                try:
+                    with tempfile.NamedTemporaryFile(delete=False, mode='w', encoding='utf-8') as temp_file:
+                        temp_file.write(blob.download_as_text())
+                        temp_file_path = temp_file.name
+                    
+                    self._process_and_embed_file(temp_file_path, collection_name)
+                    
+                    # Move blob to processed folder
+                    processed_blob_name = f"processed/{blob.name}"
+                    bucket.copy_blob(blob, bucket, processed_blob_name)
+                    blob.delete()
+                    
+                    logger.info(f"Finished processing and moved file in GCS: {blob.name} to {processed_blob_name}")
+                    
+                except Exception as e:
+                    logger.error(f"Failed to process file {blob.name} from GCS: {e}", exc_info=True)
+                finally:
+                    if 'temp_file_path' in locals() and os.path.exists(temp_file_path):
+                        os.remove(temp_file_path)
 
     def _process_and_embed_file(self, file_path: str, collection_name: str):
         """
