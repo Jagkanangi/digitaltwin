@@ -10,13 +10,14 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
 
-# ============================
-# STAGE 2 — BUILDER (NO TESTS)
-# ============================
-# This stage isolates dependency resolution so production never touches the test stage.
-FROM base AS builder
+# # ============================
+# # STAGE 2 — BUILDER (NO TESTS)
+# # ============================
+# # This stage isolates dependency resolution so production never touches the test stage.
+# FROM base AS builder
 RUN uv sync --frozen --no-dev
 COPY src/ ./src/
+ENV PYTHONPATH="/app:/app/src"
 
 # ============================
 # STAGE 3 — DEVELOPMENT (TESTS)
@@ -30,10 +31,7 @@ RUN uv run pytest tests/
 # ============================
 # STAGE 4 — PRODUCTION
 # ============================
-FROM builder AS production
-
-# Explicit PYTHONPATH to avoid import weirdness
-ENV PYTHONPATH="/app:/app/src"
+FROM base AS production
 
 # Cloud Run entrypoint
 CMD ["sh", "-c", "uv run uvicorn src.RestService:app --host 0.0.0.0 --port ${PORT:-8080}"]
