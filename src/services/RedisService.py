@@ -37,7 +37,6 @@ class RedisService:
                 self.client = redis.Redis(
                     host=config.connection.redis_host,   # private IP, e.g. 10.x.x.x
                     port=config.connection.redis_port,   # usually 6379
-                    password=config.redis_password,      # only if AUTH is enabled
                     socket_connect_timeout=5,            # prevents Cloud Run hangs
                     socket_timeout=5,                    # prevents read hangs
                     socket_keepalive=True,               # recommended for Cloud Run
