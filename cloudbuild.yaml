@@ -46,7 +46,6 @@ steps:
       - '--network='
       - '--subnet='
       - '--vpc-connector=kindnus-run-vpc-connector'
-      - '--vpc-egress=private-ranges-only'
-      
+      - '--vpc-egress=all-traffic'      
 options:
   logging: CLOUD_LOGGING_ONLY
