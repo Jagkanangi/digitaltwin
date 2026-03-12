@@ -21,4 +21,4 @@ COPY src/ ./src/
 ENV PYTHONPATH="/app:/app/src"
 
 # Run the app using the already-installed uvicorn inside .venv
-CMD ["uvicorn", "src.RestService:app", "--host", "0.0.0.0", "--port", "${PORT:-8080}"]
+CMD ["sh", "-c", "uvicorn src.RestService:app --host 0.0.0.0 --port ${PORT:-8080}"]
