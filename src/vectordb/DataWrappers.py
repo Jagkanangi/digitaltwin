@@ -139,7 +139,8 @@ class ChromaDataWrapper(AbstractDataWrapper):
                         'distance': dist,
                     }
                     logger.info(f"Doc: {item['document'][:50]}... -> Distance: {dist}")
-                    search_results.append(SearchResult.model_validate(item))
+                    if(dist < config.db_retrieval.distance_threshold):
+                        search_results.append(SearchResult.model_validate(item))
             logger.info("-------------------------------")
             
             return search_results
