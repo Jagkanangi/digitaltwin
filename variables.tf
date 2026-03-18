@@ -1,180 +1,113 @@
-# variables.tf
+###############################################################
+# variables.tf — Teaching Version
+#
+# Every variable here is used by main.tf.
+# Each one has a clear explanation for beginners.
+###############################################################
 
-variable "root_domain" {
+variable "my_org_name" {
+  description = "Short org identifier used in resource names (e.g. kindnus)"
   type        = string
-  description = "The name of your domain (e.g., kindnus)"
+}
+
+variable "my_profile_name" {
+  description = "Short profile/user identifier used in bucket names (e.g. jag)"
+  type        = string
 }
 
 variable "organization_id" {
+  description = "Your GCP organization ID"
+  type        = string
+}
+
+variable "billing_account_id" {
+  description = "Billing account ID for the project"
   type        = string
 }
 
 variable "region" {
-  type    = string
-  default = "northamerica-northeast2" # You can keep defaults for non-private stuff
+  description = "Default region for all resources (e.g. us-central1)"
+  type        = string
+}
+
+variable "root_domain" {
+  description = "Root domain without TLD (e.g. example)"
+  type        = string
 }
 
 variable "tld" {
+  description = "Top-level domain (e.g. .com)"
   type        = string
-  description = "Top-level domain"
 }
 
 variable "www_sub_domain" {
+  description = "Subdomain for www (usually 'www')"
   type        = string
-  description = "WWW subdomain"
-
+  default     = "www"
 }
 
 variable "sub_domain1" {
+  description = "First additional subdomain (e.g. api)"
   type        = string
-  description = "Subdomain 1"
 }
 
 variable "sub_domain2" {
+  description = "Second additional subdomain (e.g. ui)"
   type        = string
-  description = "Subdomain 2"
+}
+
+variable "github_app_installation_id" {
+  description = "GitHub App installation ID used by Cloud Build"
+  type        = number
 }
 
 variable "github_user" {
+  description = "GitHub username or organization"
   type        = string
-  description = "GitHub username"
-}
-
-variable "gcp_git_installation_id" {
-  type        = string
-  description = "GCP Git installation ID"
-}
-
-variable "chroma_password" {
-  type        = string
-  description = "ChromaDB password"
-  sensitive   = true
-}
-
-variable "redis_password" {
-  type        = string
-  description = "Redis password"
-  sensitive   = true
-}
-
-variable "open_ai_key" {
-  type        = string
-  description = "OpenAI API Key"
-  sensitive   = true
-}
-
-variable "chroma_db" {
-  type        = string
-  description = "ChromaDB service URL"
-}
-
-variable "redis_service" {
-  type        = string
-  description = "Redis service URL"
-}
-
-variable "ip_address" {
-  type        = string
-  description = "External IP address"
-}
-
-variable "website_module_name" {
-  type        = string
-  description = "The name for the digital twin UI website module"
-  default     = "digital-twin-ui-website"
-}
-
-variable "webservice_module_name" {
-  type        = string
-  description = "The name for the digital twin API service module"
-  default     = "digital-twin-api-service"
-}
-
-variable "backend_service_name" {
-  type        = string
-  description = "The name of the backend service"
-}
-
-variable "NEG_name" {
-  type        = string
-  description = "The name of the Network Endpoint Group (NEG)"
-}
-
-variable "url_map" {
-  type        = string
-  description = "The name of the URL map"
-}
-
-variable "ssl_certificates" {
-  type        = string
-  description = "The name of the SSL certificates"
-}
-
-variable "cert_map" {
-  type        = string
-  description = "The name of the certificate map"
-}
-
-
-variable "https_proxy" {
-  type        = string
-  description = "The name of the HTTPS proxy"
-  default     = "https-proxy"
-}
-
-variable "repo_name" {
-  type        = string
-  description = "The name of the repository"
-  default = "digital-twin-repo"
-}
-
-variable "github_repo" {
-  type        = string
-  description = "The name of the GitHub repository"
-}
-
-variable "trigger_name" {
-  type        = string
-  description = "The name of the trigger"
-  default = "digital-twin-trigger"
-}
-
-variable "repo_connection_name" {
-  type        = string
-  description = "The name of the repository connection"
-  default = "digital-twin-github-connection"
-}
-
-variable "repo_link_name" {
-  type        = string
-  description = "The name of the repository link"
-  default = "repo-link"
-}
-
-variable "chroma_bucket_name" {
-  type        = string
-  description = "The name of the Chroma bucket"
-}
-
-variable "redis_bucket_name" {
-  type        = string
-  description = "The name of the Redis bucket"
-}
-
-variable "secret_keys" {
-  type        = list(string)
-  description = "A list of secret keys to be created in Secret Manager"
-  default     = ["CHROMA_SERVER_AUTH_CREDENTIALS", "REDIS_PASSWORD", "OPENAI_API_KEY"]
 }
 
 variable "ui_repo_name" {
+  description = "GitHub repository name for the UI"
   type        = string
-  description = "The name of the GitHub repository for the UI"
-  default = "MyProfileWebsite"
 }
 
 variable "service_repo_name" {
+  description = "GitHub repository name for the API"
   type        = string
-  description = "The name of the GitHub repository for the UI"
-  default = "digitaltwin"
+}
+
+variable "repo_name" {
+  description = "Artifact Registry repository ID for Docker images"
+  type        = string
+}
+
+variable "repo_connection_name" {
+  description = "Name for the Cloud Build GitHub connection"
+  type        = string
+}
+
+variable "repo_link_name" {
+  description = "Prefix for Cloud Build repository link resources"
+  type        = string
+}
+
+variable "trigger_name" {
+  description = "Prefix for Cloud Build triggers"
+  type        = string
+}
+
+variable "webservice_module_name" {
+  description = "Cloud Run service name for the API"
+  type        = string
+}
+
+variable "website_module_name" {
+  description = "Cloud Run service name for the UI"
+  type        = string
+}
+
+variable "github_token_value" {
+  description = "GitHub token stored in Secret Manager"
+  type        = string
+  sensitive   = true
 }
