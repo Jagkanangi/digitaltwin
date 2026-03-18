@@ -194,6 +194,8 @@ class ChatTwin(AbstractChatClient):
             model = self.model_name
         try:             
             # Step 2: First LLM pass with structured output enforcement
+            self.client._turn_on_debug()
+            logger.info(f"Sending prompt to LLM with model {model}. Prompt: {self.get_messages()}")
             response, completion = self.client.chat.create_with_completion(
                 model=model,
                 messages=self.get_messages(),
