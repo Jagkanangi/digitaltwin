@@ -10,6 +10,7 @@ class ConnectionConfig(BaseModel):
 
 class DBRetrievalConfig(BaseModel):
     nn_count: int = 5
+    distance_threshold: float = 1.5
 
 class ModelsConfig(BaseModel):
     chunking_model : str = "text-embedding-3-small"

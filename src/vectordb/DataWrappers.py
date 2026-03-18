@@ -109,6 +109,8 @@ class ChromaDataWrapper(AbstractDataWrapper):
             raise RuntimeError("ChromaDB collection not initialized. Call init_bucket() first.")
         
         n_results: int = config.db_retrieval.nn_count
+        distance_threshold: float = config.db_retrieval.distance_threshold
+        print(f"Performing search with n_results={n_results} and distance_threshold={distance_threshold}")
         try:
             # Querying the database
             results: QueryResult = self._collection.query( # type: ignore
@@ -139,7 +141,7 @@ class ChromaDataWrapper(AbstractDataWrapper):
                         'distance': dist,
                     }
                     logger.info(f"Doc: {item['document'][:50]}... -> Distance: {dist}")
-                    if(dist < config.db_retrieval.distance_threshold):
+                    if(dist < distance_threshold):
                         search_results.append(SearchResult.model_validate(item))
             logger.info("-------------------------------")
             
